@@ -11,10 +11,14 @@ class Vectorizer:
     def from_corpus(cls, corpus, vocab_size):
         vocab = Vocabulary()
         for token in corpus:
-            vocab.add(token)
+            if token != '[END]': vocab.add(token)
         vocab_subset = vocab.get_topk_subset(vocab_size)
         vocab_subset.shuffle()
         return cls(vocab_subset)
 
     def vectorize(self, corpus):
-        return [self.vocab[token] for token in corpus]
+        # return [self.vocab[token] for token in corpus]
+        vectorized_corpus = []
+        for token in corpus:
+            if token != '[END]': vectorized_corpus.append(self.vocab[token])
+            else: vectorized_corpus.append(len(self.vocab))
