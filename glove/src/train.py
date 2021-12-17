@@ -43,7 +43,7 @@ def load_config():
 def calculate_cooccurrence(config):
     with open(config.input_filepath, "rb") as f:
         corpus = pickle.load(f)
-    print(f"Loaded corpus of {len(corpus)} tokens")
+    print(f"Loaded corpus of {len(corpus) - corpus.count('[END]')} tokens")
     vectorizer = Vectorizer.from_corpus(
         corpus=corpus,
         vocab_size=config.vocab_size
