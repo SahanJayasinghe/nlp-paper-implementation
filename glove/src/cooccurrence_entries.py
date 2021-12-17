@@ -46,7 +46,8 @@ class CooccurrenceEntries:
             index_lower = split_points[partition_id]
             index_upper = split_points[partition_id + 1] - 1
             cooccurr_counts = Counter()
-            for i in tqdm(range(len(self.vectorized_corpus)), leave=False):
+            # for i in tqdm(range(len(self.vectorized_corpus)), leave=False):
+            for i in range(len(self.vectorized_corpus)):
                 if self.vectorized_corpus[i] == vocab_len: continue     # [END] token
                 if not self.validate_index(
                     self.vectorized_corpus[i],

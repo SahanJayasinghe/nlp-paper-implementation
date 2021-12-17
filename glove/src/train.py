@@ -48,7 +48,7 @@ def calculate_cooccurrence(config):
         corpus=corpus,
         vocab_size=config.vocab_size
     )
-    print("Generated vocabulary and vectorizer")
+    print(f"Generated vocabulary of {len(vectorizer.vocab)} tokens and vectorizer")
     cooccurrence = CooccurrenceEntries.setup(
         corpus=corpus,
         vectorizer=vectorizer
@@ -84,7 +84,8 @@ def train_glove(config):
         losses = []
         for epoch in tqdm(range(config.num_epochs)):
             epoch_loss = 0
-            for batch in tqdm(dataloader.iter_batches()):
+            # for batch in tqdm(dataloader.iter_batches()):
+            for batch in dataloader.iter_batches():
                 loss = model(
                     batch[0][:, 0],
                     batch[0][:, 1],
