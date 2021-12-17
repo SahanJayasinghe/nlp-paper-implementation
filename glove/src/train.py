@@ -43,10 +43,12 @@ def load_config():
 def calculate_cooccurrence(config):
     with open(config.input_filepath, "rb") as f:
         corpus = pickle.load(f)
+    print(f"Loaded corpus of {len(corpus)} tokens")
     vectorizer = Vectorizer.from_corpus(
         corpus=corpus,
         vocab_size=config.vocab_size
     )
+    print("Generated vocabulary and vectorizer")
     cooccurrence = CooccurrenceEntries.setup(
         corpus=corpus,
         vectorizer=vectorizer
@@ -107,8 +109,10 @@ def main():
     args = parse_args()
     config = load_config()
     if not args.second_step_only:
+        print("Starting process: co-occurence matrix calculation....")
         calculate_cooccurrence(config)
     if not args.first_step_only:
+        print("Starting process: glove model training....")
         train_glove(config)
 
 
