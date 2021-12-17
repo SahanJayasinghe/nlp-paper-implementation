@@ -22,3 +22,4 @@ class Vectorizer:
         for token in corpus:
             if token != '[END]': vectorized_corpus.append(self.vocab[token])
             else: vectorized_corpus.append(len(self.vocab))
+        return vectorized_corpus
