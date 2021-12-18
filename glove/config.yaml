@@ -23,6 +23,9 @@ num_epochs: 20
 device: cpu
 learning_rate: 0.05
 ## glove paremeters
-embedding_size: 100
+embedding_size: 300
 x_max: 100
 alpha: 0.75
+
+## pre-trained weights path
+pre_trained_weights: None

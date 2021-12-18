@@ -58,7 +58,7 @@ def calculate_cooccurrence(config):
         num_partitions=config.num_partitions,
         chunk_size=config.chunk_size,
         output_directory=config.cooccurrence_dir
-    ) 
+    )
 
 
 def train_glove(config):
@@ -75,6 +75,9 @@ def train_glove(config):
         alpha=config.alpha
     )
     model.to(config.device)
+    if config.pre_trained_weights != None or config.pre_trained_weights != 'None':
+        model.load_state_dict(torch.load(config.pre_trained_weights))
+
     optimizer = torch.optim.Adagrad(
         model.parameters(),
         lr=config.learning_rate
@@ -99,7 +102,7 @@ def train_glove(config):
             losses.append(epoch_loss)
             print(f"Epoch {epoch}: loss = {epoch_loss}")
             torch.save(model.state_dict(), config.output_filepath)
-    
+
     plt.plot(losses)
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
