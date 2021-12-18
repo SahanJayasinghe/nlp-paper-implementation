@@ -75,7 +75,7 @@ def train_glove(config):
         alpha=config.alpha
     )
     model.to(config.device)
-    if config.pre_trained_weights != None or config.pre_trained_weights != 'None':
+    if config.pre_trained_weights != None:
         model.load_state_dict(torch.load(config.pre_trained_weights))
 
     optimizer = torch.optim.Adagrad(

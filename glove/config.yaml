@@ -28,4 +28,4 @@ x_max: 100
 alpha: 0.75
 
 ## pre-trained weights path
-pre_trained_weights: None
+pre_trained_weights:
