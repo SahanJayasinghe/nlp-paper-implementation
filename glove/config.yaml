@@ -1,8 +1,15 @@
 # first step parameters
 ## path to the input file, should be a pickle file storing a list of words
 input_filepath:
+
 ## number of tokens in the training vocabulary
-vocab_size: 100000
+## if this is empty, set min_freq
+vocab_size:
+
+## minimum frequency of a token to be in vocabulary 
+## if this is empty, set vocab_size
+min_freq: 2
+
 ## size of the context window
 window_size: 10
 ## the number of paritions to divide cooccurence matrix in 

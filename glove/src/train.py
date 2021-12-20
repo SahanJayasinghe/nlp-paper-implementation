@@ -46,7 +46,8 @@ def calculate_cooccurrence(config):
     print(f"Loaded corpus of {len(corpus) - corpus.count('[END]')} tokens")
     vectorizer = Vectorizer.from_corpus(
         corpus=corpus,
-        vocab_size=config.vocab_size
+        vocab_size=config.vocab_size,
+        min_freq=config.min_freq
     )
     print(f"Generated vocabulary of {len(vectorizer.vocab)} tokens and vectorizer")
     cooccurrence = CooccurrenceEntries.setup(
