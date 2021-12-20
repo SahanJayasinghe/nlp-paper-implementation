@@ -3,12 +3,11 @@
 input_filepath:
 
 ## number of tokens in the training vocabulary
-## if this is empty, set min_freq
+## used when creating vocab if min_freq is not set
 vocab_size:
 
 ## minimum frequency of a token to be in vocabulary 
-## if this is empty, set vocab_size
-min_freq: 2
+min_freq: 3
 
 ## size of the context window
 window_size: 10
@@ -23,10 +22,11 @@ cooccurrence_dir:
 
 # second step parameters
 ## output path for the trained word vectors 
-output_filepath:
+output_folder:
 ## pytorch training parameters
 batch_size: 32
-num_epochs: 20
+start_epoch: 0
+end_epoch: 2
 device: cpu
 learning_rate: 0.05
 ## glove paremeters
