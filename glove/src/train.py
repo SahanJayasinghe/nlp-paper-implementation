@@ -2,6 +2,8 @@ import argparse
 import pickle
 import os
 from pathlib import Path
+from datetime import datetime
+import json
 
 import yaml
 import matplotlib.pyplot as plt
@@ -84,8 +86,9 @@ def train_glove(config):
         lr=config.learning_rate
     )
     with dataloader.open():
+        train_start_datetime = datetime.now()
         model.train()
-        losses = []
+        losses = {}
         for epoch in tqdm(range(config.start_epoch, config.end_epoch)):
             epoch_loss = 0
             # for batch in tqdm(dataloader.iter_batches()):
@@ -100,12 +103,20 @@ def train_glove(config):
                 optimizer.step()
                 optimizer.zero_grad()
 
-            losses.append(epoch_loss)
-            print(f"Epoch {epoch}: loss = {epoch_loss}")
+            # losses.append(epoch_loss)
+            losses[f'epoch_{epoch+1}'] = epoch_loss
+            print(f"Epoch {epoch+1}: loss = {epoch_loss}")
             filename = os.path.join(config.output_folder, f'glove_state_dict_epoch_{epoch+1}.pt')
             torch.save(model.state_dict(), filename)
 
-    plt.plot(losses)
+    dt_str = train_start_datetime.strftime('D%Y_%m_%d_T%H_%M_%S')
+    metrics_json_path = os.path.join(config.output_folder, f"training_loss_epoch_{config.start_epoch}_to_{config.end_epoch}_{dt_str}.json")
+    with open(metrics_json_path, 'w') as json_file:
+        json.dump(losses, json_file)
+    end_time = datetime.now()
+    print(f"\n============= Total Training Time: {end_time - train_start_datetime} ============")
+
+    plt.plot(list(losses.values()))
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.show()

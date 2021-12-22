@@ -4,7 +4,7 @@ input_filepath:
 
 ## number of tokens in the training vocabulary
 ## used when creating vocab if min_freq is not set
-vocab_size:
+vocab_size: 54059
 
 ## minimum frequency of a token to be in vocabulary 
 min_freq: 3
